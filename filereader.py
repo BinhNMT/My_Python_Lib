@@ -1,10 +1,10 @@
 class FileReader:
 # Variables:
     # Hided data
-    __fileName = 0
-    __endOfFile = 0
+    __fileName = 0      # Store the file's name
+    __endOfFile = 0     # Total lines od the file
     # Public data
-    content = []
+    content = []        # Store the content of the file, each index = 1 line of the file
 
 # Hided Methods:
     # Constructor
