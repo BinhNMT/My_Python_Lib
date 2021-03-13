@@ -1,27 +1,41 @@
 import smtplib
 
-sender = 'youremailaddres@gmail.com'
-receivers = ['receiveremailaddres@gmail.com']
+class MailService:
+# Variables:
+    # Hided data:
+    __mailServer = ""
+    __port = 0
+    __sender = ""
+    __passWord = ""
+    # Public data:
+    receivers = []
+    emailContent = ""
 
-message = """From: <youremailaddres@gmail.com>
-To: <receiveremailaddres@gmail.com>
-Subject: SMTP e-mail test
-
-Day la vi du ve gui email.
-"""
-
-smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
-smtpObj.ehlo()
-smtpObj.starttls()
-
-try:
-    smtpObj.login('youremailaddres@gmail.com', 'youremailpassword')
+# Hided Methods:
+    # Constructor:
+    def __init__(self, inputSenderAddr, inputpassWd, inputServer = 'smtp.gmail.com', inputPort = 587):
+        #
+        self.__mailServer = inputServer
+        self.__port = inputPort
+        self.__sender = inputSenderAddr
+        self.__passWord = inputpassWd
     
-    try:
-        smtpObj.sendmail(sender, receivers, message)
-        print ("Send successful")
-    finally:
-        smtpObj.quit()
+# Interface
+    # Send email
+    def emailSender(self):
+    #
+        smtpObj = smtplib.SMTP(self.__mailServer, self.__port)
+        smtpObj.ehlo()
+        smtpObj.starttls()
+    
+        try:
+            smtpObj.login(self.__sender, self.__passWord)
+    
+            try:
+                smtpObj.sendmail(self.__sender, self.receivers, self.emailContent)
+                print ("Send successful")
+            finally:
+                smtpObj.quit()
 
-except Exception:
-    print ("Error: Cannot send email")
+        except Exception:
+            print ("Error: Cannot send email")

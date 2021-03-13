@@ -33,3 +33,8 @@ class FileReader:
         #
         # Close file
         fileObj.close()
+    
+    # Get number of lines of the read file
+    def getLines(self):
+        #
+        return len(self.content)
