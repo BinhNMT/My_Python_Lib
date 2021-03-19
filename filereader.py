@@ -3,17 +3,15 @@ class FileReader:
     # Hided data
     __fileName = 0      # Store the file's name
     __endOfFile = 0     # Total lines od the file
-    # Public data
-    content = []        # Store the content of the file, each index = 1 line of the file
 
 # Hided Methods:
     # Constructor
     def __init__(self, inputFileName):
         #
-        self.fileName = inputFileName
+        self.__fileName = inputFileName
         #
         # Get File's lines number
-        f = open(self.fileName, "r")
+        f = open(self.__fileName, "r")
         lines = len(f.readlines())
         self.__endOfFile = lines
         #
@@ -22,19 +20,33 @@ class FileReader:
 
 # Interface:
     # Read all of file line by line
-    def readFile(self):
+    def readLines(self):
         #
+        contentAsList = []        # Store the content of the file, each index = 1 line of the file.
+        # 
         # Open file
-        fileObj = open(self.fileName, "r")
+        fileObj = open(self.__fileName, "r")
         #
         # Read line by line of the file
         for count in range(self.__endOfFile):
-            self.content.append(fileObj.readline())
+            contentAsList.append(fileObj.readline())
         #
-        # Close file
+        # Close file and return lines content
         fileObj.close()
+        return contentAsList
     
-    # Get number of lines of the read file
-    def getLines(self):
+    #
+    # Read all of file like a package
+    def readFile(self):
         #
-        return len(self.content)
+        contentAsString = ""        # Store the content of the file in a string package.
+        # 
+        # Open file
+        fileObj = open(self.__fileName, "r")
+        #
+        # Read the file
+        contentAsString = fileObj.read()
+        #
+        # Close file and return lines content
+        fileObj.close()
+        return contentAsString
